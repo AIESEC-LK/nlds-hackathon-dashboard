@@ -1,3 +1,4 @@
-LOCAL_HOST_URL = "http://localhost:8501/"
+# CREDENTIALS
 
-ADMIN_DASHBOARD_PAGE = LOCAL_HOST_URL + "Admin_Dashboard"
+ADMIN_USERNAME = "mcadmin"
+ADMIN_PASSWORD = "aslmc2425"
