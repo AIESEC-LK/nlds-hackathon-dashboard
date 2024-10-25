@@ -158,3 +158,71 @@ def partner(logo, title):
                 </center>
                 """,
                 unsafe_allow_html=True)
+
+
+def countdown_timer(duration_seconds: int):
+    # Initialize timer-related session state variables
+    if 'timer_start' not in st.session_state:
+        st.session_state.timer_start = None
+    if 'paused_time' not in st.session_state:
+        st.session_state.paused_time = 0
+    if 'is_paused' not in st.session_state:
+        st.session_state.is_paused = False
+
+    # Start button action
+    def start_timer():
+        if st.session_state.timer_start is None:  # Timer is not running
+            st.session_state.timer_start = time.time()  # Set start time
+            st.session_state.is_paused = False  # Timer is now running
+            st.session_state.paused_time = 0  # Reset paused time
+
+    # Pause button action
+    def pause_timer():
+        if not st.session_state.is_paused:  # Only pause if running
+            st.session_state.paused_time += time.time() - \
+                st.session_state.timer_start  # Update paused time
+            st.session_state.is_paused = True  # Set paused state
+
+    # Resume button action
+    def resume_timer():
+        if st.session_state.is_paused:  # Only resume if paused
+            # Reset the timer start to current time
+            st.session_state.timer_start = time.time()
+            st.session_state.is_paused = False  # Set running state
+
+    # Reset button action
+    def reset_timer():
+        st.session_state.timer_start = None
+        st.session_state.paused_time = 0
+        st.session_state.is_paused = False
+
+    col4, col1, col2, col3, col5 = st.columns([3, 2, 2, 2, 3])
+    with col1:
+        if st.button("Start", on_click=start_timer):
+            pass
+    with col2:
+        if st.session_state.is_paused:
+            if st.button("Resume", on_click=resume_timer):
+                pass
+        else:
+            if st.button("Pause", on_click=pause_timer):
+                pass
+    with col3:
+        if st.button("Reset", on_click=reset_timer):
+            pass
+
+    # Countdown logic
+    if st.session_state.timer_start is not None:
+        elapsed_time = (time.time() - st.session_state.timer_start) + \
+            st.session_state.paused_time
+        remaining_time = duration_seconds - int(elapsed_time)
+
+        if remaining_time > 0:
+            st.title(f"""Time left: {
+                remaining_time // 3600}h {(remaining_time % 3600) // 60}m {remaining_time % 60}s""")
+            st.experimental_rerun()
+        else:
+            st.title("Time's up!")
+            reset_timer()
+    else:
+        st.title("Click Start to begin the timer.")
