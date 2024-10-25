@@ -48,8 +48,6 @@ def nav_button(inner_text, button_color, text_color, url):
     st.markdown(button_code, unsafe_allow_html=True)
 
 
-
-
 # This component is created to show a topic
 # You have to pass the topic
 
@@ -79,24 +77,23 @@ def footer():
 
     create_gap(3)
 
-    st.divider()
+  #  st.divider()
 
-    col1, col2, col3 = st.columns([1, 20, 1])
+  #  col1, col2, col3 = st.columns([1, 20, 1])
 
-    with col2:
-        st.image(value.FOOTER)
+  #  with col2:
+   #     st.image(value.FOOTER)
 
     st.markdown(
         """
         <div style='text-align:center'>
             <p style='font-size: 15px; color: #FFFFFF;'>
-                <b>Developed by :</b> Global Expansia Organizing Committee - AIESEC in University of Kelaniya
+                <b>Developed by :</b> National Dev Team - AIESEC in Sri Lanka
             </p>
         </div>
         """,
         unsafe_allow_html=True
     )
-
 
 
 def aiesec_stats():
